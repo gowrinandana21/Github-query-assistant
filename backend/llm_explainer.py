@@ -24,18 +24,18 @@ Lines: {c['start_line']}-{c['end_line']}
     )
 
     prompt = f"""
-You are a strict code analysis assistant.
+You are an expert code analysis assistant.
 
 IMPORTANT RULES:
 - Use ONLY the provided repository context.
 - Do NOT add external knowledge.
-- Do NOT explain general concepts unless directly visible in the code.
+- First, briefly reason step-by-step about the request using the context.
+- When identifying where something is handled (like authentication, APIs, etc.), ALWAYS list the HTTP route/endpoint in addition to the function name, if available.
+- If the logic spans multiple files, connect them step by step.
+- Explain how the code works using the retrieved snippets.
 - If the answer is not present in the context, reply:
   "This information is not present in the repository."
-- Keep the answer concise.
-- Maximum 5 bullet points.
-- No introduction.
-- No conclusion.
+- Keep the final answer concise (maximum 5 bullet points).
 - Do NOT guess line numbers.
 
 Repository Context:
@@ -61,7 +61,7 @@ Answer (bullet points only):
                 "messages": [{"role": "user", "content": prompt}],
                 "temperature": 0.0,
                 "top_p": 1.0,
-                "max_tokens": 350  # lower = less rambling
+                "max_tokens": 600  # allow for reasoning
             },
             timeout=120
         )

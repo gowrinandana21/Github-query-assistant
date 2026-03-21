@@ -66,20 +66,24 @@ def store_chunks(chunks, collection_name, batch_size=10):
 
 
 # ---------- Search ----------
-def search(question, collection_name, k=15):
+def search(question, collection_name, k=25):
 
     query_vector = embed_query(question)
 
     results = client.query_points(
         collection_name=collection_name,
         query=query_vector,
-        limit=30,  # get more
+        limit=40,  # get more
     )
 
-    hits = [hit.payload for hit in results.points]
+    hits = [{
+        "score":hit.score,
+        **hit.payload
+    }
+    for hit in results.points]
 
     # If question references a file
-    if ".js" in question or ".ts" in question:
+    if "." in question:
         filename = [word for word in question.split() if ".js" in word or ".ts" in word]
         if filename:
             filename = filename[0]

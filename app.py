@@ -151,6 +151,8 @@ if prompt := st.chat_input("Ask a question or paste a URL..."):
             response = f"Repository **{repo_name}** is indexed. How can I help you understand the code?"
             st.markdown(response)
             st.session_state.messages.append({"role": "assistant", "content": response})
+            # Re-run once to clear the "Analyzing..." status block and keep only the chat history
+            st.rerun()
 
     else:
         if not st.session_state.collection_name:

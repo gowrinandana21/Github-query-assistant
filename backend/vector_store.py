@@ -9,7 +9,11 @@ load_dotenv()
 
 from qdrant_client import QdrantClient
 
-client = QdrantClient(":memory:")
+client = QdrantClient(
+    url=os.getenv("QDRANT_URL"),
+    api_key=os.getenv("QDRANT_API_KEY"),
+    https=True,
+)
 
 # ---------- Check If Collection Exists ----------
 def collection_exists(collection_name):

@@ -1,10 +1,13 @@
 import requests
 import os
 from dotenv import load_dotenv
+import streamlit as st
 
+# Load environment variables (for local use)
 load_dotenv()
 
-API_KEY = os.getenv("MISTRAL_API_KEY")
+# Get API key (Streamlit Cloud OR local)
+api_key = st.secrets.get("MISTRAL_API_KEY") or os.getenv("MISTRAL_API_KEY")
 
 
 def explain_code(question, retrieved_chunks):
@@ -45,15 +48,13 @@ Question:
 {question}
 
 Answer (bullet points only):
-
-
 """
 
     try:
         response = requests.post(
             "https://api.mistral.ai/v1/chat/completions",
             headers={
-                "Authorization": f"Bearer {API_KEY}",
+                "Authorization": f"Bearer {api_key}",  # ✅ FIXED
                 "Content-Type": "application/json"
             },
             json={
@@ -61,7 +62,7 @@ Answer (bullet points only):
                 "messages": [{"role": "user", "content": prompt}],
                 "temperature": 0.0,
                 "top_p": 1.0,
-                "max_tokens": 600  # allow for reasoning
+                "max_tokens": 600
             },
             timeout=120
         )

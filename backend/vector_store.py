@@ -9,11 +9,10 @@ load_dotenv()
 
 from qdrant_client import QdrantClient
 
-client = QdrantClient(
-    url=os.getenv("QDRANT_URL"),
-    api_key=os.getenv("QDRANT_API_KEY"),
-    https=True,
-)
+from qdrant_client import QdrantClient
+
+# ✅ LOCAL in-memory database (NO internet needed)
+client = QdrantClient(":memory:")
 
 # ---------- Check If Collection Exists ----------
 def collection_exists(collection_name):

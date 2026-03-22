@@ -8,7 +8,7 @@ load_dotenv()
 
 # Get API key (Streamlit Cloud OR local)
 api_key = st.secrets.get("MISTRAL_API_KEY") or os.getenv("MISTRAL_API_KEY")
-
+st.write("API KEY:", api_key)
 
 def explain_code(question, retrieved_chunks):
 

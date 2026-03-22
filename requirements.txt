@@ -1,0 +1,7 @@
+streamlit
+gitpython
+chromadb
+openai
+tiktoken
+numpy
+pandas

@@ -1,3 +1,10 @@
+def explain_code(question, retrieved_chunks):
+
+    return f"DEBUG KEY: {api_key}"   # 👈 ADD THIS LINE
+
+    if not retrieved_chunks:
+        return "No relevant code found in the repository."
+        
 import requests
 import os
 from dotenv import load_dotenv

@@ -77,4 +77,4 @@ Answer (bullet points only):
         return data["choices"][0]["message"]["content"].strip()
 
     except Exception as e:
-        return f"Error contacting LLM: {str(e)}"
+      return f"DEBUG: {api_key}"

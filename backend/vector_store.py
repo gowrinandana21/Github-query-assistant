@@ -1,18 +1,11 @@
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import Distance, VectorParams, PointStruct
 from backend.embeddings import embed_query
-import os
 import uuid
-from dotenv import load_dotenv
-
-load_dotenv()
-
-from qdrant_client import QdrantClient
-
-from qdrant_client import QdrantClient
 
 # ✅ LOCAL in-memory database (NO internet needed)
 client = QdrantClient(":memory:")
+
 
 # ---------- Check If Collection Exists ----------
 def collection_exists(collection_name):
@@ -63,7 +56,7 @@ def store_chunks(chunks, collection_name, batch_size=10):
             wait=True
         )
 
-        print(f"Uploaded batch {i//batch_size + 1} / {total//batch_size + 1}")
+        print(f"Uploaded batch {i//batch_size + 1}")
 
 
 # ---------- Search ----------
@@ -74,14 +67,13 @@ def search(question, collection_name, k=25):
     results = client.query_points(
         collection_name=collection_name,
         query=query_vector,
-        limit=40,  # get more
+        limit=40,
     )
 
     hits = [{
-        "score":hit.score,
+        "score": hit.score,
         **hit.payload
-    }
-    for hit in results.points]
+    } for hit in results.points]
 
     # If question references a file
     if "." in question:

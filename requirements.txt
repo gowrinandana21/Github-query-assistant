@@ -6,3 +6,4 @@ tiktoken
 numpy
 pandas
 sentence-transformers
+qdrant-client

@@ -1,8 +1,4 @@
-from pathlib import Path
 
-readme = r'''# GitHub Query Assistant
-
-Ask questions about a GitHub code repository in natural language and get concise, context-aware explanations grounded in the repository's source code.
 
 ## Overview
 
